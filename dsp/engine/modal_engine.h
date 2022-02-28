@@ -29,8 +29,8 @@
 #ifndef PLAITS_DSP_ENGINE_MODAL_ENGINE_H_
 #define PLAITS_DSP_ENGINE_MODAL_ENGINE_H_
 
-#include "plaits/dsp/engine/engine.h"
-#include "plaits/dsp/physical_modelling/modal_voice.h"
+#include "ArpOn/dsp/engine/engine.h"
+#include "ArpOn/dsp/physical_modelling/modal_voice.h"
 
 namespace plaits {
 

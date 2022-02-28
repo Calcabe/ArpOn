@@ -32,10 +32,10 @@
 #include "stm_audio_bootloader/qpsk/packet_decoder.h"
 #include "stm_audio_bootloader/qpsk/demodulator.h"
 
-#include "plaits/drivers/audio_dac.h"
-#include "plaits/drivers/firmware_update_adc.h"
-#include "plaits/drivers/leds.h"
-#include "plaits/drivers/switches.h"
+#include "ArpOn/drivers/audio_dac.h"
+#include "ArpOn/drivers/firmware_update_adc.h"
+#include "ArpOn/drivers/leds.h"
+#include "ArpOn/drivers/switches.h"
 
 extern "C" {
 

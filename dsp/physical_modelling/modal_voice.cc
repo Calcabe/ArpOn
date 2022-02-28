@@ -30,14 +30,14 @@
 // The click is replaced by continuous white noise when the trigger input
 // of the module is not patched.
 
-#include "plaits/dsp/physical_modelling/modal_voice.h"
+#include "ArpOn/dsp/physical_modelling/modal_voice.h"
 
 #include <algorithm>
 
 #include "stmlib/dsp/units.h"
 #include "stmlib/utils/random.h"
 
-#include "plaits/dsp/noise/dust.h"
+#include "ArpOn/dsp/noise/dust.h"
 
 namespace plaits {
 

@@ -31,7 +31,7 @@
 
 #include "stmlib/stmlib.h"
 
-#include "plaits/dsp/fx/fx_engine.h"
+#include "ArpOn/dsp/fx/fx_engine.h"
 
 namespace plaits {
 

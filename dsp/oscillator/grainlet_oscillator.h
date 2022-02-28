@@ -34,8 +34,8 @@
 #include "stmlib/dsp/parameter_interpolator.h"
 #include "stmlib/dsp/polyblep.h"
 
-#include "plaits/dsp/oscillator/oscillator.h"
-#include "plaits/resources.h"
+#include "ArpOn/dsp/oscillator/oscillator.h"
+#include "ArpOn/resources.h"
 
 namespace plaits {
 

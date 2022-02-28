@@ -26,7 +26,7 @@
 //
 // LPC10 encoded words extracted from various TI ROMs.
 
-#include "plaits/dsp/speech/lpc_speech_synth_words.h"
+#include "ArpOn/dsp/speech/lpc_speech_synth_words.h"
 
 namespace plaits {
 

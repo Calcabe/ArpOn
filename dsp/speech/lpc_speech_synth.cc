@@ -26,14 +26,14 @@
 //
 // LPC10 speech synth.
 
-#include "plaits/dsp/speech/lpc_speech_synth.h"
+#include "ArpOn/dsp/speech/lpc_speech_synth.h"
 
 #include <algorithm>
 
 #include "stmlib/utils/random.h"
 
-#include "plaits/dsp/oscillator/oscillator.h"
-#include "plaits/resources.h"
+#include "ArpOn/dsp/oscillator/oscillator.h"
+#include "ArpOn/resources.h"
 
 namespace plaits {
 

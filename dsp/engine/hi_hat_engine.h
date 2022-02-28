@@ -30,8 +30,8 @@
 #ifndef PLAITS_DSP_ENGINE_HI_HAT_ENGINE_H_
 #define PLAITS_DSP_ENGINE_HI_HAT_ENGINE_H_
 
-#include "plaits/dsp/drums/hi_hat.h"
-#include "plaits/dsp/engine/engine.h"
+#include "ArpOn/dsp/drums/hi_hat.h"
+#include "ArpOn/dsp/engine/engine.h"
 
 namespace plaits {
   

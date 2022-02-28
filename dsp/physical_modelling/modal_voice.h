@@ -33,7 +33,7 @@
 #ifndef PLAITS_DSP_PHYSICAL_MODELLING_MODAL_VOICE_H_
 #define PLAITS_DSP_PHYSICAL_MODELLING_MODAL_VOICE_H_
 
-#include "plaits/dsp/physical_modelling/resonator.h"
+#include "ArpOn/dsp/physical_modelling/resonator.h"
 
 namespace plaits {
 

@@ -26,7 +26,7 @@
 //
 // UI and CV processing ("controller" and "view")
 
-#include "plaits/ui.h"
+#include "ArpOn/ui.h"
 
 #include <algorithm>
 

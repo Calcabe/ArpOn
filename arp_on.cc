@@ -24,18 +24,18 @@
 
 #include <stm32f37x_conf.h>
 
-#include "plaits/drivers/audio_dac.h"
-#include "plaits/drivers/debug_pin.h"
-#include "plaits/drivers/debug_port.h"
+#include "ArpOn/drivers/audio_dac.h"
+#include "ArpOn/drivers/debug_pin.h"
+#include "ArpOn/drivers/debug_port.h"
 
-#include "plaits/dsp/dsp.h"
+#include "ArpOn/dsp/dsp.h"
 
 #include "stmlib/dsp/units.h"
 
-#include "plaits/dsp/voice.h"
+#include "ArpOn/dsp/voice.h"
 
-#include "plaits/settings.h"
-#include "plaits/ui.h"
+#include "ArpOn/settings.h"
+#include "ArpOn/ui.h"
 
 using namespace plaits;
 using namespace stmlib;

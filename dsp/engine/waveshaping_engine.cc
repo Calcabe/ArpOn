@@ -26,14 +26,14 @@
 //
 // Slope -> Waveshaper -> Wavefolder.
 
-#include "plaits/dsp/engine/waveshaping_engine.h"
+#include "ArpOn/dsp/engine/waveshaping_engine.h"
 
 #include <algorithm>
 
 #include "stmlib/dsp/parameter_interpolator.h"
 #include "stmlib/utils/dsp.h"
 
-#include "plaits/resources.h"
+#include "ArpOn/resources.h"
 
 namespace plaits {
 

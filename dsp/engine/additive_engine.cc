@@ -26,13 +26,13 @@
 //
 // Additive synthesis with 32 partials.
 
-#include "plaits/dsp/engine/additive_engine.h"
+#include "ArpOn/dsp/engine/additive_engine.h"
 
 #include <algorithm>
 
 #include "stmlib/dsp/cosine_oscillator.h"
 
-#include "plaits/resources.h"
+#include "ArpOn/resources.h"
 
 namespace plaits {
 

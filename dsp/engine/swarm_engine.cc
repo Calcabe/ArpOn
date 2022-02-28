@@ -26,7 +26,7 @@
 //
 // Swarm of sawtooths and sines.
 
-#include "plaits/dsp/engine/swarm_engine.h"
+#include "ArpOn/dsp/engine/swarm_engine.h"
 
 #include <algorithm>
 

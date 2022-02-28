@@ -30,25 +30,25 @@ FAMILY         = f37x
 # USB            = enabled
 
 APPLICATION_LARGE = TRUE
-BOOTLOADER        = plaits_bootloader
+BOOTLOADER        = ArpOn_bootloader
 
 # Prefered upload command
 UPLOAD_COMMAND  = upload_combo_jtag_erase_first
 
 # Packages to build
-TARGET         = plaits
-PACKAGES       = plaits \
-		plaits/drivers \
-		plaits/dsp \
-		plaits/dsp/fx \
-		plaits/dsp/drum_modelling \
-		plaits/dsp/engine \
-		plaits/dsp/physical_modelling \
-		plaits/dsp/speech \
+TARGET         = ArpOn
+PACKAGES       = ArpOn \
+		ArpOn/drivers \
+		ArpOn/dsp \
+		ArpOn/dsp/fx \
+		ArpOn/dsp/drum_modelling \
+		ArpOn/dsp/engine \
+		ArpOn/dsp/physical_modelling \
+		ArpOn/dsp/speech \
 		stmlib/dsp \
 		stmlib/utils \
 		stmlib/system
-RESOURCES      = plaits/resources
+RESOURCES      = ArpOn/resources
 
 TOOLCHAIN_PATH ?= /usr/local/arm-4.8.3/
 

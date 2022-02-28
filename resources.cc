@@ -30,7 +30,7 @@
 // make resources
 
 
-#include "plaits/resources.h"
+#include "ArpOn/resources.h"
 
 namespace plaits {
 

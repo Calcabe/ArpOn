@@ -26,7 +26,7 @@
 //
 // Drivers for the 12-bit ADC scanning pots.
 
-#include "plaits/drivers/pots_adc.h"
+#include "ArpOn/drivers/pots_adc.h"
 
 #include <algorithm>
 

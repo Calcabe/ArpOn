@@ -37,8 +37,8 @@
 #include "stmlib/dsp/units.h"
 #include "stmlib/utils/random.h"
 
-#include "plaits/dsp/dsp.h"
-#include "plaits/dsp/oscillator/sine_oscillator.h"
+#include "ArpOn/dsp/dsp.h"
+#include "ArpOn/dsp/oscillator/sine_oscillator.h"
 
 namespace plaits {
 

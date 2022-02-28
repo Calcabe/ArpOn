@@ -27,7 +27,7 @@
 // Naive speech synth - made from "synthesizer" building blocks (pulse
 // oscillator and zero-delay SVF).
 
-#include "plaits/dsp/speech/naive_speech_synth.h"
+#include "ArpOn/dsp/speech/naive_speech_synth.h"
 
 #include <algorithm>
 
@@ -35,7 +35,7 @@
 #include "stmlib/dsp/units.h"
 #include "stmlib/utils/random.h"
 
-#include "plaits/resources.h"
+#include "ArpOn/resources.h"
 
 namespace plaits {
 

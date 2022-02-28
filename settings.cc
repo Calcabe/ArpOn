@@ -26,7 +26,7 @@
 //
 // Settings storage.
 
-#include "plaits/settings.h"
+#include "ArpOn/settings.h"
 
 #include <algorithm>
 

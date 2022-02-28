@@ -26,7 +26,7 @@
 //
 // Drivers for the 12-bit ADC used for firmware updates through the MODEL CV in.
 
-#include "plaits/drivers/firmware_update_adc.h"
+#include "ArpOn/drivers/firmware_update_adc.h"
 
 #include <stm32f37x_conf.h>
 

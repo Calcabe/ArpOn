@@ -36,7 +36,7 @@
 #include "stmlib/dsp/filter.h"
 #include "stmlib/utils/buffer_allocator.h"
 
-#include "plaits/dsp/physical_modelling/delay_line.h"
+#include "ArpOn/dsp/physical_modelling/delay_line.h"
 
 namespace plaits {
 

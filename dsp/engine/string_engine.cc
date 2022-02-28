@@ -26,7 +26,7 @@
 //
 // Three voices of string synthesis.
 
-#include "plaits/dsp/engine/string_engine.h"
+#include "ArpOn/dsp/engine/string_engine.h"
 
 #include <algorithm>
 

@@ -26,11 +26,11 @@
 //
 // Classic 2-op FM found in Braids, Rings and Elements.
 
-#include "plaits/dsp/engine/fm_engine.h"
+#include "ArpOn/dsp/engine/fm_engine.h"
 
 #include "stmlib/dsp/parameter_interpolator.h"
 
-#include "plaits/resources.h"
+#include "ArpOn/resources.h"
 
 namespace plaits {
 

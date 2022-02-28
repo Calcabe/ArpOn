@@ -26,9 +26,9 @@
 //
 // Various flavours of speech synthesis.
 
-#include "plaits/dsp/engine/speech_engine.h"
+#include "ArpOn/dsp/engine/speech_engine.h"
 
-#include "plaits/dsp/speech/lpc_speech_synth_words.h"
+#include "ArpOn/dsp/speech/lpc_speech_synth_words.h"
 
 namespace plaits {
 

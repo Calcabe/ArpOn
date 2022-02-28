@@ -27,7 +27,7 @@
 // This is a table with vowels (a, e, i, o, u) and a random selection of
 // consonnants for the LPC10 speech synth.
 
-#include "plaits/dsp/speech/lpc_speech_synth_controller.h"
+#include "ArpOn/dsp/speech/lpc_speech_synth_controller.h"
 
 namespace plaits {
 

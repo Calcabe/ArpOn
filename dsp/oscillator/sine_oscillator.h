@@ -36,7 +36,7 @@
 #include "stmlib/dsp/parameter_interpolator.h"
 #include "stmlib/dsp/rsqrt.h"
 
-#include "plaits/resources.h"
+#include "ArpOn/resources.h"
 
 namespace plaits {
 

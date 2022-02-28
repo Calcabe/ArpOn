@@ -31,10 +31,10 @@
 
 #include "stmlib/dsp/hysteresis_quantizer.h"
 
-#include "plaits/dsp/engine/engine.h"
-#include "plaits/dsp/speech/lpc_speech_synth_controller.h"
-#include "plaits/dsp/speech/naive_speech_synth.h"
-#include "plaits/dsp/speech/sam_speech_synth.h"
+#include "ArpOn/dsp/engine/engine.h"
+#include "ArpOn/dsp/speech/lpc_speech_synth_controller.h"
+#include "ArpOn/dsp/speech/naive_speech_synth.h"
+#include "ArpOn/dsp/speech/sam_speech_synth.h"
 
 namespace plaits {
 

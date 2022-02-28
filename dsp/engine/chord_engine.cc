@@ -26,11 +26,11 @@
 //
 // Chords: wavetable and divide-down organ/string machine.
 
-#include "plaits/dsp/engine/chord_engine.h"
+#include "ArpOn/dsp/engine/chord_engine.h"
 
 #include <algorithm>
 
-#include "plaits/resources.h"
+#include "ArpOn/resources.h"
 
 namespace plaits {
 

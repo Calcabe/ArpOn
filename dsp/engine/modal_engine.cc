@@ -26,7 +26,7 @@
 //
 // One voice of modal synthesis.
 
-#include "plaits/dsp/engine/modal_engine.h"
+#include "ArpOn/dsp/engine/modal_engine.h"
 
 #include <algorithm>
 

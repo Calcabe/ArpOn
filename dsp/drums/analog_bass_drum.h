@@ -36,8 +36,8 @@
 #include "stmlib/dsp/parameter_interpolator.h"
 #include "stmlib/dsp/units.h"
 
-#include "plaits/dsp/dsp.h"
-#include "plaits/dsp/oscillator/sine_oscillator.h"
+#include "ArpOn/dsp/dsp.h"
+#include "ArpOn/dsp/oscillator/sine_oscillator.h"
 
 namespace plaits {
 

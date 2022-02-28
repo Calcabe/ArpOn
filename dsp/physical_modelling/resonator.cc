@@ -26,7 +26,7 @@
 //
 // Resonator, taken from Rings' code but with fixed position.
 
-#include "plaits/dsp/physical_modelling/resonator.h"
+#include "ArpOn/dsp/physical_modelling/resonator.h"
 
 #include <algorithm>
 
@@ -34,7 +34,7 @@
 #include "stmlib/dsp/dsp.h"
 #include "stmlib/dsp/units.h"
 
-#include "plaits/resources.h"
+#include "ArpOn/resources.h"
 
 namespace plaits {
 

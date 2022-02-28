@@ -1,4 +1,4 @@
-PACKAGES       = plaits/test stmlib/utils plaits plaits/dsp plaits/dsp/engine stmlib/dsp plaits/dsp/speech plaits/dsp/physical_modelling plaits/dsp/olddrums
+PACKAGES       = ArpOn/test stmlib/utils plaits ArpOn/dsp ArpOn/dsp/engine stmlib/dsp ArpOn/dsp/speech ArpOn/dsp/physical_modelling ArpOn/dsp/olddrums
 
 VPATH          = $(PACKAGES)
 

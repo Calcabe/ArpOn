@@ -26,14 +26,14 @@
 //
 // Extended Karplus-Strong, with all the niceties from Rings.
 
-#include "plaits/dsp/physical_modelling/string_voice.h"
+#include "ArpOn/dsp/physical_modelling/string_voice.h"
 
 #include <algorithm>
 
 #include "stmlib/dsp/units.h"
 #include "stmlib/utils/random.h"
 
-#include "plaits/dsp/noise/dust.h"
+#include "ArpOn/dsp/noise/dust.h"
 
 namespace plaits {
 

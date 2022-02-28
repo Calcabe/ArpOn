@@ -26,7 +26,7 @@
 //
 // UART driver for conversing with the factory testing program.
 
-#include "plaits/drivers/debug_port.h"
+#include "ArpOn/drivers/debug_port.h"
 
 namespace plaits {
 

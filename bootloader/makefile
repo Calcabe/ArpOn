@@ -33,9 +33,9 @@ FAMILY         = f37x
 UPLOAD_COMMAND  = upload_jtag_erase_first
 
 # Packages to build
-TARGET         = plaits_bootloader
-PACKAGES       = plaits/bootloader \
-		plaits/drivers \
+TARGET         = ArpOn_bootloader
+PACKAGES       = ArpOn/bootloader \
+		ArpOn/drivers \
 		stm_audio_bootloader/qpsk \
 		stmlib/dsp \
 		stmlib/utils \

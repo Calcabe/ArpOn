@@ -33,11 +33,11 @@
 #include "stmlib/dsp/units.h"
 #include "stmlib/utils/random.h"
 
-#include "plaits/dsp/engine/engine.h"
-#include "plaits/dsp/oscillator/oscillator.h"
-#include "plaits/dsp/oscillator/string_synth_oscillator.h"
-#include "plaits/dsp/oscillator/sine_oscillator.h"
-#include "plaits/resources.h"
+#include "ArpOn/dsp/engine/engine.h"
+#include "ArpOn/dsp/oscillator/oscillator.h"
+#include "ArpOn/dsp/oscillator/string_synth_oscillator.h"
+#include "ArpOn/dsp/oscillator/sine_oscillator.h"
+#include "ArpOn/resources.h"
 
 namespace plaits {
 

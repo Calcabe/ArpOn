@@ -31,7 +31,7 @@
 
 #include "stmlib/dsp/dsp.h"
 
-#include "plaits/dsp/dsp.h"
+#include "ArpOn/dsp/dsp.h"
 
 namespace plaits {
 

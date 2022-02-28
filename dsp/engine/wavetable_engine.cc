@@ -26,11 +26,11 @@
 //
 // 8x8x3 wave terrain.
 
-#include "plaits/dsp/engine/wavetable_engine.h"
+#include "ArpOn/dsp/engine/wavetable_engine.h"
 
 #include <algorithm>
 
-#include "plaits/resources.h"
+#include "ArpOn/resources.h"
 
 namespace plaits {
 

@@ -26,7 +26,7 @@
 //
 // 808 and synthetic snare drum generators.
 
-#include "plaits/dsp/engine/snare_drum_engine.h"
+#include "ArpOn/dsp/engine/snare_drum_engine.h"
 
 #include <algorithm>
 

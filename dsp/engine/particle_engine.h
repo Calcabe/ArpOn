@@ -29,9 +29,9 @@
 #ifndef PLAITS_DSP_ENGINE_PARTICLE_ENGINE_H_
 #define PLAITS_DSP_ENGINE_PARTICLE_ENGINE_H_
 
-#include "plaits/dsp/engine/engine.h"
-#include "plaits/dsp/fx/diffuser.h"
-#include "plaits/dsp/noise/particle.h"
+#include "ArpOn/dsp/engine/engine.h"
+#include "ArpOn/dsp/fx/diffuser.h"
+#include "ArpOn/dsp/noise/particle.h"
 
 namespace plaits {
 

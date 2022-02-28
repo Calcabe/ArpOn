@@ -29,7 +29,7 @@
 #ifndef PLAITS_DSP_SPEECH_SAM_SPEECH_SYNTH_H_
 #define PLAITS_DSP_SPEECH_SAM_SPEECH_SYNTH_H_
 
-#include "plaits/dsp/dsp.h"
+#include "ArpOn/dsp/dsp.h"
 
 namespace plaits {
   

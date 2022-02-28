@@ -34,7 +34,7 @@ import pylab
 
 WAVETABLE_SIZE = 256
 BRAIDS_WAVES = numpy.fromstring(
-  file('plaits/resources/waves.bin', 'rb').read(), numpy.uint8)
+  file('ArpOn/resources/waves.bin', 'rb').read(), numpy.uint8)
 
 wavetables = []
 

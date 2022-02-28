@@ -26,7 +26,7 @@
 //
 // 2 variable shape oscillators with sync, FM and crossfading.
 
-#include "plaits/dsp/engine/virtual_analog_engine.h"
+#include "ArpOn/dsp/engine/virtual_analog_engine.h"
 
 #include <algorithm>
 

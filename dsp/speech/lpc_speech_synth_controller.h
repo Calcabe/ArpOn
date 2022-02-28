@@ -29,7 +29,7 @@
 #ifndef PLAITS_DSP_SPEECH_LPC_SPEECH_SYNTH_CONTROLLER_H_
 #define PLAITS_DSP_SPEECH_LPC_SPEECH_SYNTH_CONTROLLER_H_
 
-#include "plaits/dsp/speech/lpc_speech_synth.h"
+#include "ArpOn/dsp/speech/lpc_speech_synth.h"
 
 #include "stmlib/utils/buffer_allocator.h"
 

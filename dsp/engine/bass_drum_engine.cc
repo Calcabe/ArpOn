@@ -26,7 +26,7 @@
 //
 // 808 and synthetic bass drum generators.
 
-#include "plaits/dsp/engine/bass_drum_engine.h"
+#include "ArpOn/dsp/engine/bass_drum_engine.h"
 
 #include <algorithm>
 

@@ -29,9 +29,9 @@
 #ifndef PLAITS_DSP_ENGINE_SNARE_DRUM_ENGINE_H_
 #define PLAITS_DSP_ENGINE_SNARE_DRUM_ENGINE_H_
 
-#include "plaits/dsp/drums/analog_snare_drum.h"
-#include "plaits/dsp/drums/synthetic_snare_drum.h"
-#include "plaits/dsp/engine/engine.h"
+#include "ArpOn/dsp/drums/analog_snare_drum.h"
+#include "ArpOn/dsp/drums/synthetic_snare_drum.h"
+#include "ArpOn/dsp/engine/engine.h"
 
 namespace plaits {
   

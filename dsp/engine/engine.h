@@ -29,7 +29,7 @@
 #ifndef PLAITS_DSP_ENGINE_ENGINE_H_
 #define PLAITS_DSP_ENGINE_ENGINE_H_
 
-#include "plaits/dsp/dsp.h"
+#include "ArpOn/dsp/dsp.h"
 
 #include "stmlib/dsp/units.h"
 #include "stmlib/utils/buffer_allocator.h"

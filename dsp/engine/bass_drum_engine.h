@@ -29,11 +29,11 @@
 #ifndef PLAITS_DSP_ENGINE_BASS_DRUM_ENGINE_H_
 #define PLAITS_DSP_ENGINE_BASS_DRUM_ENGINE_H_
 
-#include "plaits/dsp/drums/analog_bass_drum.h"
-#include "plaits/dsp/drums/synthetic_bass_drum.h"
-#include "plaits/dsp/engine/engine.h"
-#include "plaits/dsp/fx/overdrive.h"
-#include "plaits/dsp/fx/sample_rate_reducer.h"
+#include "ArpOn/dsp/drums/analog_bass_drum.h"
+#include "ArpOn/dsp/drums/synthetic_bass_drum.h"
+#include "ArpOn/dsp/engine/engine.h"
+#include "ArpOn/dsp/fx/overdrive.h"
+#include "ArpOn/dsp/fx/sample_rate_reducer.h"
 
 namespace plaits {
   

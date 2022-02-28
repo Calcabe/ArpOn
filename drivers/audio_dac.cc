@@ -26,7 +26,7 @@
 //
 // Drivers for the PCM5100 DAC.
 
-#include "plaits/drivers/audio_dac.h"
+#include "ArpOn/drivers/audio_dac.h"
 
 #include <stm32f37x_conf.h>
 

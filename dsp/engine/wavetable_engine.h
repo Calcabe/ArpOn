@@ -31,8 +31,8 @@
 
 #include "stmlib/dsp/hysteresis_quantizer.h"
 
-#include "plaits/dsp/engine/engine.h"
-#include "plaits/dsp/oscillator/wavetable_oscillator.h"
+#include "ArpOn/dsp/engine/engine.h"
+#include "ArpOn/dsp/oscillator/wavetable_oscillator.h"
 
 namespace plaits {
 

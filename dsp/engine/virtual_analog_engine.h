@@ -29,9 +29,9 @@
 #ifndef PLAITS_DSP_ENGINE_VIRTUAL_ANALOG_ENGINE_H_
 #define PLAITS_DSP_ENGINE_VIRTUAL_ANALOG_ENGINE_H_
 
-#include "plaits/dsp/engine/engine.h"
-#include "plaits/dsp/oscillator/variable_saw_oscillator.h"
-#include "plaits/dsp/oscillator/variable_shape_oscillator.h"
+#include "ArpOn/dsp/engine/engine.h"
+#include "ArpOn/dsp/oscillator/variable_saw_oscillator.h"
+#include "ArpOn/dsp/oscillator/variable_shape_oscillator.h"
 
 #define VA_VARIANT 2
 

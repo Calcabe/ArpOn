@@ -35,7 +35,7 @@
 
 #include <algorithm>
 
-#include "plaits/dsp/oscillator/oscillator.h"
+#include "ArpOn/dsp/oscillator/oscillator.h"
 
 namespace plaits {
 

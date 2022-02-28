@@ -26,7 +26,7 @@
 //
 // Driver for the 2 switches.
 
-#include "plaits/drivers/switches.h"
+#include "ArpOn/drivers/switches.h"
 
 #include <algorithm>
 

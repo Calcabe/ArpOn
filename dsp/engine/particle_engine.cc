@@ -26,7 +26,7 @@
 //
 // Clocked noise processed by a filter.
 
-#include "plaits/dsp/engine/particle_engine.h"
+#include "ArpOn/dsp/engine/particle_engine.h"
 
 #include <algorithm>
 

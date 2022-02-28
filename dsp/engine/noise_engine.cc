@@ -26,7 +26,7 @@
 //
 // Clocked noise processed by a multimode filter.
 
-#include "plaits/dsp/engine/noise_engine.h"
+#include "ArpOn/dsp/engine/noise_engine.h"
 
 #include "stmlib/dsp/parameter_interpolator.h"
 

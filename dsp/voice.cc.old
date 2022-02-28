@@ -26,7 +26,7 @@
 //
 // Main synthesis voice.
 
-#include "plaits/dsp/voice.h"
+#include "ArpOn/dsp/voice.h"
 
 namespace plaits {
 

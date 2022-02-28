@@ -31,14 +31,14 @@
 
 #include "stmlib/stmlib.h"
 
-#include "plaits/drivers/cv_adc.h"
-#include "plaits/drivers/leds.h"
-#include "plaits/drivers/normalization_probe.h"
-#include "plaits/drivers/pots_adc.h"
-#include "plaits/drivers/switches.h"
-#include "plaits/dsp/voice.h"
-#include "plaits/pot_controller.h"
-#include "plaits/settings.h"
+#include "ArpOn/drivers/cv_adc.h"
+#include "ArpOn/drivers/leds.h"
+#include "ArpOn/drivers/normalization_probe.h"
+#include "ArpOn/drivers/pots_adc.h"
+#include "ArpOn/drivers/switches.h"
+#include "ArpOn/dsp/voice.h"
+#include "ArpOn/pot_controller.h"
+#include "ArpOn/settings.h"
 
 namespace plaits {
 

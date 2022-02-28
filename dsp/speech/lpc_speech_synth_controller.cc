@@ -26,14 +26,14 @@
 //
 // Feeds frames to the LPC10 speech synth.
 
-#include "plaits/dsp/speech/lpc_speech_synth_controller.h"
+#include "ArpOn/dsp/speech/lpc_speech_synth_controller.h"
 
 #include <algorithm>
 
 #include "stmlib/dsp/units.h"
 #include "stmlib/utils/random.h"
 
-#include "plaits/dsp/oscillator/oscillator.h"
+#include "ArpOn/dsp/oscillator/oscillator.h"
 
 namespace plaits {
 

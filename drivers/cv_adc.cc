@@ -26,7 +26,7 @@
 //
 // Drivers for the 16-bit SDADC scanning the CVs.
 
-#include "plaits/drivers/cv_adc.h"
+#include "ArpOn/drivers/cv_adc.h"
 
 #include <stm32f37x_conf.h>
 

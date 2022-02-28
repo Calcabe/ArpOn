@@ -29,8 +29,8 @@
 #ifndef PLAITS_DSP_ENGINE_ADDITIVE_ENGINE_H_
 #define PLAITS_DSP_ENGINE_ADDITIVE_ENGINE_H_
 
-#include "plaits/dsp/engine/engine.h"
-#include "plaits/dsp/oscillator/harmonic_oscillator.h"
+#include "ArpOn/dsp/engine/engine.h"
+#include "ArpOn/dsp/oscillator/harmonic_oscillator.h"
 
 namespace plaits {
   

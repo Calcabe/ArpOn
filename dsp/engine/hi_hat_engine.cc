@@ -27,7 +27,7 @@
 // 808-style HH with two noise sources - one faithful to the original, the other
 // more metallic.
 
-#include "plaits/dsp/engine/hi_hat_engine.h"
+#include "ArpOn/dsp/engine/hi_hat_engine.h"
 
 namespace plaits {
 

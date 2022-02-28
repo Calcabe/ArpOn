@@ -29,8 +29,8 @@
 #ifndef PLAITS_DSP_ENGINE_WAVESHAPING_ENGINE_H_
 #define PLAITS_DSP_ENGINE_WAVESHAPING_ENGINE_H_
 
-#include "plaits/dsp/engine/engine.h"
-#include "plaits/dsp/oscillator/oscillator.h"
+#include "ArpOn/dsp/engine/engine.h"
+#include "ArpOn/dsp/oscillator/oscillator.h"
 
 namespace plaits {
   

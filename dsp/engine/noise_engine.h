@@ -31,8 +31,8 @@
 
 #include "stmlib/dsp/filter.h"
 
-#include "plaits/dsp/engine/engine.h"
-#include "plaits/dsp/noise/clocked_noise.h"
+#include "ArpOn/dsp/engine/engine.h"
+#include "ArpOn/dsp/noise/clocked_noise.h"
 
 namespace plaits {
 

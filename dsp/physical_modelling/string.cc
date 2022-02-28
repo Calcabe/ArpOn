@@ -26,7 +26,7 @@
 //
 // Comb filter / KS string. "Lite" version of the implementation used in Rings.
 
-#include "plaits/dsp/physical_modelling/string.h"
+#include "ArpOn/dsp/physical_modelling/string.h"
 
 #include <cmath>
 
@@ -35,8 +35,8 @@
 #include "stmlib/dsp/units.h"
 #include "stmlib/utils/random.h"
 
-#include "plaits/dsp/dsp.h"
-#include "plaits/resources.h"
+#include "ArpOn/dsp/dsp.h"
+#include "ArpOn/resources.h"
 
 namespace plaits {
   
