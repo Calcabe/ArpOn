@@ -33,17 +33,6 @@ namespace plaits {
 using namespace std;
 using namespace stmlib;
 
-// void Voice::ComputeArpInversion(
-//     int arp_index,
-//     float inversion,
-//     float* arp_ratios) {
-//   inversion = inversion * float(kNumArpNotes * 5);
- 
-//   for (int i = 0; i < kNumArpNotes; ++i) {
-//     arp_ratios[i] = all_arp_ratios[arp_index * kNumArpNotes + i] ;
-//   }
-// }
-
 void Voice::Init(BufferAllocator* allocator, int* arp_step_) {
   engines_.Init();
   engines_.RegisterInstance(&virtual_analog_engine_, false, 0.8f, 0.8f);
@@ -96,13 +85,6 @@ void Voice::Init(BufferAllocator* allocator, int* arp_step_) {
 }
 
 void Voice::DoNextArpStep(int arp_mode, int arp_steps) {
-  // ARP_MODE_UP
-  // ARP_MODE_DOWN
-  // ARP_MODE_INCLUSIVE
-  // ARP_MODE_EXCLUSIVE
-  // ARP_MODE_RANDOM
-  // ARP_MODE_WALK
-  
   switch (arp_mode) {
     case ARP_MODE_UP: {
       arp_reverse = false;
@@ -268,11 +250,6 @@ void Voice::Render(
   // arp_steps = 4;
   // arp_inversion = 0.5f;
   // arp_index = 2; 
-
-  // ComputeArps(
-  //     arp_index,
-  //     arp_inversion,
-  //     arp_ratios);
 
   // Arp parameter
 

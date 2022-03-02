@@ -202,10 +202,6 @@ struct Modulations {
   bool level_patched;
 };
 
-// struct Arp {
-//   int step;
-// }
-
 class Voice {
  public:
   Voice() { }
@@ -216,11 +212,6 @@ class Voice {
     short aux;
   };
 
-  // void ComputeArpInversion(
-  //     int arp_index,
-  //     float inversion,
-  //     float* arp_ratios);
-  
   void Init(stmlib::BufferAllocator* allocator, int* arp_step);
   void DoNextArpStep(int arp_mode, int arp_steps);
   void Render(
