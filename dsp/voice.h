@@ -66,7 +66,7 @@ const int kTriggerDelay = 5;
 const int kNumArps = 11;
 const int kNumArpNotes = 8;
 // const int kNumArpVoices = 5;
-const float arps[kNumArps][kNumArpNotes] = {
+const float arp_table[kNumArps][kNumArpNotes] = {
   { 0.00f, 0.00f, 12.00f, 12.00f, 24.00f, 24.00f, 36.00f, 36.00f },  // OCT
   { 0.00f, 7.00f,  7.00f, 12.00f, 12.00f, 19.00f, 19.00f, 24.00f },  // 5
   { 0.00f, 5.00f,  7.00f, 12.00f, 12.00f, 17.00f, 19.00f, 24.00f },  // sus4
@@ -80,8 +80,8 @@ const float arps[kNumArps][kNumArpNotes] = {
   { 0.00f, 4.00f,  7.00f, 12.00f, 16.00f, 19.00f, 24.00f, 28.00f },  // M
 };
 
-// const int kNumArps = 17;
-//  const float arps[kArpNumChords][kArpNumNotes] = {
+// const int arp_table = 17;
+//  const float arpTable[kArpNumChords][kArpNumNotes] = {
 //   // Fixed Intervals
 //   { 0.00f, 0.00f, 12.00f, 12.00f },  // Octave
 //   { 0.00f, 7.00f,  7.00f, 12.00f },  // Fifth
@@ -104,6 +104,17 @@ const float arps[kNumArps][kNumArpNotes] = {
 //   { 0.00f, 3.00f,  6.00f, 10.00f },  // Half Diminished
 //   { 0.00f, 3.00f,  6.00f,  9.00f },  // Fully Diminished
 // };
+
+const int kNumArpModes = 7;
+enum ArpMode {
+  ARP_MODE_UP = 1,
+  ARP_MODE_DOWN = 2,
+  ARP_MODE_INCLUSIVE = 3,
+  ARP_MODE_EXCLUSIVE = 4,
+  ARP_MODE_RANDOM = 5,
+  ARP_MODE_WALK = 6,
+  ARP_MODE_WALK_WITH_PAUSE = 7
+};
 
 class ChannelPostProcessor {
  public:
@@ -171,7 +182,7 @@ struct Patch {
   float lpg_colour;
   float arp_steps;
   float arp_index; 
-  float arp_inversion; 
+  float arp_mode; 
 };
 
 struct Modulations {
@@ -205,17 +216,16 @@ class Voice {
     short aux;
   };
 
-  void ComputeArpInversion(
-      int arp_index,
-      float inversion,
-      float* arp_ratios,  
-      float* arp_amplitudes);
+  // void ComputeArpInversion(
+  //     int arp_index,
+  //     float inversion,
+  //     float* arp_ratios);
   
-  void Init(stmlib::BufferAllocator* allocator);
+  void Init(stmlib::BufferAllocator* allocator, int* arp_step);
+  void DoNextArpStep(int arp_mode, int arp_steps);
   void Render(
       const Patch& patch,
       const Modulations& modulations,
-      int& arp_step, 
       Frame* frames,
       size_t size);
   
@@ -269,13 +279,13 @@ class Voice {
   float engine_cv_;
   
   stmlib::HysteresisQuantizer arp_index_quantizer_;
+  stmlib::HysteresisQuantizer arp_mode_quantizer_;
   
-  float arp_ratios_[kNumArps * kNumArpNotes];
-  float arp_ratios[kNumArpNotes];
-  float arp_amplitudes[kNumArpNotes];
+  float arp_ratios[kNumArps][kNumArpNotes];
 
   float arp_inversion; 
-  // int arp_step;
+  int* arp_step;
+  bool arp_reverse; 
 
   float previous_note_;
   bool trigger_state_;

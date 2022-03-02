@@ -33,59 +33,18 @@ namespace plaits {
 using namespace std;
 using namespace stmlib;
 
-void Voice::ComputeArpInversion(
-    int arp_index,
-    float inversion,
-    float* arp_ratios,
-    float* arp_amplitudes) {
-  // const float* base_ratio = &arp_ratios_[arp_index * kNumArpNotes];
-  inversion = inversion * float(kNumArpNotes * 5);
+// void Voice::ComputeArpInversion(
+//     int arp_index,
+//     float inversion,
+//     float* arp_ratios) {
+//   inversion = inversion * float(kNumArpNotes * 5);
+ 
+//   for (int i = 0; i < kNumArpNotes; ++i) {
+//     arp_ratios[i] = all_arp_ratios[arp_index * kNumArpNotes + i] ;
+//   }
+// }
 
-  // MAKE_INTEGRAL_FRACTIONAL(inversion);
-  
-  //int num_rotations = inversion_integral / kNumArpNotes;
-  //int rotated_note = inversion_integral % kNumArpNotes;
-  
-  const float kBaseGain = 0.25f;
-  
-  //int mask = 0;
-  
-  for (int i = 0; i < kNumArpNotes; ++i) {
-    // float transposition = 0.25f * static_cast<float>(
-    //     1 << ((kNumArpNotes - 1 + inversion_integral - i) / kNumArpNotes));
-    // int target_voice = (i - num_rotations + kNumArpVoices) % kNumArpVoices;
-    // int previous_voice = (target_voice - 1 + kNumArpVoices) % kNumArpVoices;
-    
-    // if (i == rotated_note) {
-    //   arp_ratios[target_voice] = arp_ratios_[arp_index * kNumArpNotes + i] * transposition;
-    //   arp_ratios[previous_voice] = arp_ratios[target_voice] * 2.0f;
-    //   arp_amplitudes[previous_voice] = kBaseGain * inversion_fractional;
-    //   arp_amplitudes[target_voice] = kBaseGain * (1.0f - inversion_fractional);
-    // } else if (i < rotated_note) {
-    //   arp_ratios[previous_voice] = arp_ratios_[arp_index * kNumArpNotes + i] * transposition;
-    //   arp_amplitudes[previous_voice] = kBaseGain;
-    // } else {
-      // arp_ratios[target_voice] = arp_ratios_[arp_index * kNumArpNotes + i] * transposition;
-      // arp_amplitudes[target_voice] = kBaseGain;
-
-    // }
-
-    arp_ratios[i] = arp_ratios_[arp_index * kNumArpNotes + i] ;
-    arp_amplitudes[i] = kBaseGain;
-    
-    // if (i == 0) {
-    //   if (i >= rotated_note) {
-    //     mask |= 1 << target_voice;
-    //   }
-    //   if (i <= rotated_note) {
-    //     mask |= 1 << previous_voice;
-    //   }
-    // }
-  }
-  // return mask;
-}
-
-void Voice::Init(BufferAllocator* allocator) {
+void Voice::Init(BufferAllocator* allocator, int* arp_step_) {
   engines_.Init();
   engines_.RegisterInstance(&virtual_analog_engine_, false, 0.8f, 0.8f);
   engines_.RegisterInstance(&waveshaping_engine_, false, 0.7f, 0.6f);
@@ -126,25 +85,125 @@ void Voice::Init(BufferAllocator* allocator) {
   trigger_delay_.Init(trigger_delay_line_);
 
   arp_index_quantizer_.Init();
+  arp_mode_quantizer_.Init();
+  arp_step = arp_step_; 
 
   for (int i = 0; i < kNumArps; ++i) {
     for (int j = 0; j < kNumArpNotes; ++j) {
-      arp_ratios_[i * kNumArpNotes + j] = SemitonesToRatio(arps[i][j]);
+      arp_ratios[i][j] = SemitonesToRatio(arp_table[i][j]);
     }
   }
-  //arp_step = 0;
+}
+
+void Voice::DoNextArpStep(int arp_mode, int arp_steps) {
+  // ARP_MODE_UP
+  // ARP_MODE_DOWN
+  // ARP_MODE_INCLUSIVE
+  // ARP_MODE_EXCLUSIVE
+  // ARP_MODE_RANDOM
+  // ARP_MODE_WALK
+  
+  switch (arp_mode) {
+    case ARP_MODE_UP: {
+      arp_reverse = false;
+      if ((*arp_step) < arp_steps) {
+        (*arp_step)++;
+      } else {
+        *arp_step = 1;
+      }
+      break;
+    }
+    case ARP_MODE_DOWN: {
+      arp_reverse = true;
+      if (*arp_step > 1) {
+        (*arp_step)--;
+      } else {
+        *arp_step = arp_steps; 
+      }
+      break;
+    }
+    case ARP_MODE_INCLUSIVE: {
+      if (arp_reverse) {
+        if (*arp_step > 1) {
+          (*arp_step)--;
+        } else {
+          *arp_step = 1; 
+          arp_reverse = false; 
+        }
+      } else {
+        if ((*arp_step) <= arp_steps) {
+          (*arp_step)++;
+        } else {
+          *arp_step = arp_steps - 1; 
+          arp_reverse = true;
+        }
+      }
+      break;
+    }
+    case ARP_MODE_EXCLUSIVE: {
+      if (arp_reverse) {
+        if (*arp_step > 1) {
+          (*arp_step)--;
+        } else {
+          *arp_step = 2; 
+          arp_reverse = false; 
+        }
+      } else {
+        if ((*arp_step) < arp_steps) {
+          (*arp_step)++;
+        } else {
+          *arp_step = arp_steps - 1; 
+          arp_reverse = true;
+        }
+      }
+      break;
+    }
+    case ARP_MODE_RANDOM: {
+      *arp_step = (stmlib::Random::GetWord() >> 16) % arp_steps + 1;
+      break;
+    }
+    case ARP_MODE_WALK_WITH_PAUSE: 
+    case ARP_MODE_WALK: {
+      int walk = (stmlib::Random::GetWord() >> 16) % ((arp_mode == ARP_MODE_WALK_WITH_PAUSE) ? 3 : 2);
+      
+      if (walk == 0) {
+        if (*arp_step > 1) {
+          (*arp_step)--;
+        } else {
+          *arp_step = 2; 
+          arp_reverse = false; 
+        }
+      } else if (walk == 1) {
+        if ((*arp_step) < arp_steps) {
+          (*arp_step)++;
+        } else {
+          *arp_step = arp_steps - 1; 
+          arp_reverse = true;
+        }
+      }
+      break;
+    }
+  }
 }
 
 void Voice::Render(
     const Patch& patch,
     const Modulations& modulations,
-    int& arp_step, 
     Frame* frames,
     size_t size) {
+  
+  int arp_index = arp_index_quantizer_.Process(patch.arp_index, kNumArps);
+  // int arp_mode = arp_mode_quantizer_.Process(patch.arp_mode, kNumArpModes);
+  int arp_mode = static_cast<float>(patch.arp_mode * 10.0f);
+  CONSTRAIN(arp_mode,1,kNumArpModes)
+  int arp_steps = static_cast<float>(patch.arp_steps * 10.0f);
+  CONSTRAIN(arp_steps,0,8)
+
   // Trigger, LPG, internal envelope.
       
   // Delay trigger by 1ms to deal with sequencers or MIDI interfaces whose
   // CV out lags behind the GATE out.
+  
   trigger_delay_.Write(modulations.trigger);
   float trigger_value = trigger_delay_.Read(kTriggerDelay);
   
@@ -157,7 +216,7 @@ void Voice::Render(
       }
       decay_envelope_.Trigger();
       engine_cv_ = modulations.engine;
-      arp_step ++; 
+      Voice::DoNextArpStep(arp_mode, arp_steps); 
     }
   } else {
     if (trigger_value < 0.1f) {
@@ -166,20 +225,7 @@ void Voice::Render(
   }
   if (!modulations.trigger_patched) {
     engine_cv_ = modulations.engine;
-    arp_step = 0;
-  }
-
-  int arp_steps = static_cast<float>(patch.arp_steps * 10.0f);
-  CONSTRAIN(arp_steps,0,8)
-  // const int arp_index = static_cast<float>(patch.arp_index * 10.0f);
-  int arp_index = arp_index_quantizer_.Process(patch.arp_index, kNumArps);
-
-  float arp_inversion = patch.arp_inversion / 2.0f;
-  // ONE_POLE(arp_inversion, patch.arp_inversion, 1.0f);
-  //CONSTRAIN(arp_inversion, 0.0f, 1.0f); 
-
-  if (( arp_step >= arp_steps + 1) || ( arp_step - 1 >= kNumArpNotes + 1)) {
-    arp_step = 1; // Resets to 0 but starts on 1
+    *arp_step = 0;
   }
 
   // Engine selection.
@@ -214,11 +260,6 @@ void Voice::Render(
 
   decay_envelope_.Process(short_decay * 2.0f);
 
-  // Arp parameter
-
-  float arp_ratios[kNumArps];
-  float arp_amplitudes[kNumArps];
-
   const float compressed_level = max(
       1.3f * modulations.level / (0.3f + fabsf(modulations.level)),
       0.0f);
@@ -228,20 +269,23 @@ void Voice::Render(
   // arp_inversion = 0.5f;
   // arp_index = 2; 
 
-  ComputeArpInversion(
-      arp_index,
-      arp_inversion,
-      arp_ratios,
-      arp_amplitudes);
+  // ComputeArps(
+  //     arp_index,
+  //     arp_inversion,
+  //     arp_ratios);
+
+  // Arp parameter
+
+  int arp_step_c = *arp_step;
+  CONSTRAIN (arp_step_c,1,arp_steps)
 
   if ((arp_steps >> 0) && (modulations.trigger_patched)) {
-    p.ratio = arp_ratios[arp_step - 1];
-    p.accent = arp_amplitudes[arp_step - 1];
-    //p.ratio = 1.0f;
+    p.ratio = arp_ratios[arp_index][arp_step_c - 1];
   } else {
     p.ratio = 1.0f;
-    p.accent = modulations.level_patched ? compressed_level : 0.8f;
   }
+
+  p.accent = modulations.level_patched ? compressed_level : 0.8f;
 
   bool use_internal_envelope = modulations.trigger_patched;
 

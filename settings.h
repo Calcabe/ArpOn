@@ -59,8 +59,8 @@ struct State {
   uint8_t color_blind;
   uint8_t arp_steps;
   uint8_t arp_index;
-  uint8_t arp_inversion; 
-  uint8_t padding[3];
+  uint8_t arp_mode; 
+  //uint8_t padding[3];
   enum { tag = 0x54415453 };  // STAT
 };
 

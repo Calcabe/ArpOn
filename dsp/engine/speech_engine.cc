@@ -62,7 +62,7 @@ void SpeechEngine::Render(
     float* aux,
     size_t size,
     bool* already_enveloped) {
-  const float f0 = NoteToFrequency(parameters.note);
+  const float f0 = NoteToFrequency(parameters.note) * parameters.ratio;
   
   const float group = parameters.harmonics * 6.0f;
   

@@ -100,7 +100,7 @@ void FillBuffer(AudioDac::Frame* output, size_t size) {
       ++output;
     }
   } else {
-    voice.Render(patch, modulations, arp_step, (Voice::Frame*)(output), size);
+    voice.Render(patch, modulations, (Voice::Frame*)(output), size);
     ui.set_active_engine(voice.active_engine());
   }
   
@@ -121,7 +121,7 @@ void Init() {
   IWDG_SetPrescaler(IWDG_Prescaler_16);
   
   BufferAllocator allocator(shared_buffer, 16384);
-  voice.Init(&allocator);
+  voice.Init(&allocator, &arp_step);
 
   volatile size_t counter = 1000000;
   while (counter--);
@@ -135,7 +135,7 @@ void Init() {
     debug_port.Init();
 #endif  // PROFILE_INTERRUPT
   }
-
+  arp_step = 0;
   ui.Init(&patch, &modulations, &settings, &arp_step);
   
   audio_dac.Init(48000, kBlockSize);

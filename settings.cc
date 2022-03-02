@@ -77,7 +77,7 @@ bool Settings::Init() {
   state_.color_blind = 0;
   state_.arp_steps = 0;
   state_.arp_index = 1;
-  state_.arp_inversion = 1; 
+  state_.arp_mode = 1; 
   
   bool success = chunk_storage_.Init(&persistent_data_, &state_);
   
