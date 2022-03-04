@@ -16,6 +16,6 @@ Acts like a normal plaits, but the way you access settings has changed...
 * 1st - plaits lpg colour and decay settings (same as plaits)
 * 2nd - plaits octave setting (same as plaits)
 * 3rd - arpeggio steps (0 for normal plaits, 1 to 8 for arpeggios, 9 for nothing yet)
-* 4th - currently unused, will be for arpeggios selection (walk, random etc)
+* 4th - arpeggios mode (up, down, inclusive, exclusive, random, random walk, random walk with pause)
 * 5th - arpeggio selector (shows the current arp in binary on the leds)
 
