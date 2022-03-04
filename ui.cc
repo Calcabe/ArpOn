@@ -42,10 +42,11 @@ static const int32_t kLongPressTime = 2000;
 
 #define ENABLE_LFO_MODE
 
-void Ui::Init(Patch* patch, Modulations* modulations, Settings* settings, int* arp_step) {
+void Ui::Init(Patch* patch, Modulations* modulations, Settings* settings, Arp* arp) {
   patch_ = patch;
   modulations_ = modulations;
   settings_ = settings;
+  arp_ = arp;
 
   cv_adc_.Init();
   pots_adc_.Init();
@@ -55,7 +56,7 @@ void Ui::Init(Patch* patch, Modulations* modulations, Settings* settings, int* a
   ui_task_ = 0;
   mode_ = UI_MODE_NORMAL;
 
-  arp_step_ = arp_step;
+  // arp_step_ = arp_step;
   
   LoadState();
   
@@ -212,62 +213,42 @@ void Ui::UpdateLEDs() {
       break;
 
     case UI_MODE_DISPLAY_ARP_INDEX: {
-      unsigned char arp_value = static_cast<char>(patch_->arp_index * 10.0f + 1);
-      int arp_led = 4;
-        
+      unsigned char arp_index = 1 + arp_->index;
         if (pwm_counter < triangle) {
-          // unsigned char bit = 1;
           for (int i = 0; i < 8; ++i) {
-            LedColor color = ((arp_value & (1 << i) ) != 0) ? LED_COLOR_YELLOW : LED_COLOR_OFF;
-            leds_.set(7 - i, color);
+            leds_.set(7 - i, ((arp_index & (1 << i) ) != 0) ? LED_COLOR_YELLOW : LED_COLOR_OFF);
           }
         } else {
-          leds_.set(arp_led, LED_COLOR_GREEN);
+          leds_.set(4, LED_COLOR_GREEN);
         }
       
       break;
     }
-    case UI_MODE_DISPLAY_ARP_STEPS:
-    case UI_MODE_DISPLAY_ARP_MODE:
-      {
-        int arp_value = 0;
-        int arp_led = 0;
-        switch (mode_) {
-          case UI_MODE_DISPLAY_ARP_STEPS: 
-            arp_value = static_cast<float>(patch_->arp_steps * 10.0f);
-            arp_led = 2;
-            break;
-          case UI_MODE_DISPLAY_ARP_MODE:
-            arp_value = static_cast<float>(patch_->arp_mode * 10.0f);
-            CONSTRAIN(arp_value,1,kNumArpModes)
-            arp_led = 3;
-            break;
-          // case UI_MODE_DISPLAY_ARP_INDEX: 
-          //   arp_value = static_cast<float>(patch_->arp_index * 10.0f);
-          //   arp_led = 4;
-          //   break;
-          default:  
-            break;
+    case UI_MODE_DISPLAY_ARP_STEPS: {
+      int arp_steps = arp_->steps;
+      if (pwm_counter < triangle) {
+        for (int i = 0; i < 8; ++i) {
+          leds_.set(7 - i, (arp_steps) == i ? LED_COLOR_YELLOW : LED_COLOR_OFF);
         }
-        
-        if (pwm_counter < triangle) {
-          for (int i = 0; i < 8; ++i) {
-            LedColor color = LED_COLOR_OFF;
-            if (arp_value == 0) {
-              color = i == (triangle >> 1) ? LED_COLOR_OFF : LED_COLOR_YELLOW;
-            } else if (arp_value == 9) {
-              color = LED_COLOR_YELLOW;
-            } else {
-              color = (arp_value - 1) == i ? LED_COLOR_YELLOW : LED_COLOR_OFF;
-            }
-            leds_.set(7 - i, color);
-          }
-        } else {
-          leds_.set(arp_led, LED_COLOR_GREEN);
-        }
+      } else {
+        leds_.set(2, LED_COLOR_GREEN);
       }
       break;
+    }
+  
+    case UI_MODE_DISPLAY_ARP_MODE: {
+      int arp_mode = arp_->mode; 
       
+      if (pwm_counter < triangle) {
+        for (int i = 0; i < 8; ++i) {
+          leds_.set(7 - i, (arp_mode) == i ? LED_COLOR_YELLOW : LED_COLOR_OFF);
+        }
+      } else {
+        leds_.set(3, LED_COLOR_GREEN);
+      }
+      break;
+    }
+
     case UI_MODE_CALIBRATION_C1:
       if (pwm_counter < triangle) {
         leds_.set(0, LED_COLOR_GREEN);
@@ -321,32 +302,6 @@ void Ui::ReadSwitches() {
           }
         }
         
-        // if (switches_.just_pressed(Switch(0))) {
-        //   pots_[POTS_ADC_CHANNEL_TIMBRE_POT].Lock();
-        //   pots_[POTS_ADC_CHANNEL_MORPH_POT].Lock();
-        // }
-        // if (switches_.just_pressed(Switch(1))) {
-        //   pots_[POTS_ADC_CHANNEL_HARMONICS_POT].Lock();
-        // }
-        
-        // if ((switches_.just_pressed(Switch(0))) || (switches_.just_pressed(Switch(1)))) {
-        //   pots_[POTS_ADC_CHANNEL_TIMBRE_POT].Lock(); // lpg_colour
-        //   pots_[POTS_ADC_CHANNEL_MORPH_POT].Lock(); // decay
-        //   pots_[POTS_ADC_CHANNEL_HARMONICS_POT].Lock(); // octave
-        //   pots_[POTS_ADC_CHANNEL_TIMBRE_ATTENUVERTER].Lock(); // arp_index
-        //   pots_[POTS_ADC_CHANNEL_FM_ATTENUVERTER].Lock(); // arp_inversion
-        //   pots_[POTS_ADC_CHANNEL_MORPH_ATTENUVERTER].Lock(); // arp_steps
-        // }
-
-        // if (pots_[POTS_ADC_CHANNEL_MORPH_POT].editing_hidden_parameter() ||
-        //     pots_[POTS_ADC_CHANNEL_TIMBRE_POT].editing_hidden_parameter()) {
-        //   mode_ = UI_MODE_DISPLAY_ALTERNATE_PARAMETERS;
-        // }
-        
-        // if (pots_[POTS_ADC_CHANNEL_HARMONICS_POT].editing_hidden_parameter()) {
-        //   mode_ = UI_MODE_DISPLAY_OCTAVE;
-        // }
-        
         // Long, double press: enter calibration mode.
         if (press_time_[0] >= kLongPressTime &&
             press_time_[1] >= kLongPressTime) {
@@ -369,7 +324,8 @@ void Ui::ReadSwitches() {
         
         if (press_time_[1] >= kLongPressTime && !press_time_[0]) {
           press_time_[0] = press_time_[1] = 0;
-          *arp_step_ = 0;
+          // *arp_step_ = 0;
+          arp_->current_step = 0;
           ignore_release_[1] = true;
         //   mode_ = UI_MODE_DISPLAY_OCTAVE;
         }
@@ -382,7 +338,8 @@ void Ui::ReadSwitches() {
             patch_->engine = (patch_->engine + 1) % 8;
           }
           SaveState();
-          *arp_step_ = 0;
+          // *arp_step_ = 0;
+          arp_->current_step = 0;
         }
   
         if (switches_.released(Switch(1)) && !ignore_release_[1]) {
@@ -393,7 +350,8 @@ void Ui::ReadSwitches() {
             patch_->engine = 8 + ((patch_->engine + 1) % 8);
           }
           SaveState();
-          *arp_step_ = 0;
+          // *arp_step_ = 0;
+          arp_->current_step = 0;
         }
       }
       break;

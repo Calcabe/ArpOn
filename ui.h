@@ -72,7 +72,7 @@ class Ui {
   Ui() { }
   ~Ui() { }
   
-  void Init(Patch* patch, Modulations* modulations, Settings* settings, int* arp_step);
+  void Init(Patch* patch, Modulations* modulations, Settings* settings, Arp* arp);
   
   void Poll();
   
@@ -126,7 +126,8 @@ class Ui {
   float pitch_lp_;
   float pitch_lp_calibration_;
 
-  int* arp_step_;
+  // int* arp_step_;
+  Arp* arp_; 
   
   Settings* settings_;
   

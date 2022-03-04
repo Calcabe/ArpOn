@@ -63,57 +63,42 @@ const int kMaxEngines = 16;
 const int kMaxTriggerDelay = 8;
 const int kTriggerDelay = 5;
 
-const int kNumArps = 11;
+const int kNumArps = 21;
 const int kNumArpNotes = 8;
 // const int kNumArpVoices = 5;
-const float arp_table[kNumArps][kNumArpNotes] = {
-  { 0.00f, 0.00f, 12.00f, 12.00f, 24.00f, 24.00f, 36.00f, 36.00f },  // OCT
-  { 0.00f, 7.00f,  7.00f, 12.00f, 12.00f, 19.00f, 19.00f, 24.00f },  // 5
-  { 0.00f, 5.00f,  7.00f, 12.00f, 12.00f, 17.00f, 19.00f, 24.00f },  // sus4
-  { 0.00f, 3.00f,  7.00f, 12.00f, 12.00f, 15.00f, 19.00f, 24.00f },  // m
-  { 0.00f, 3.00f,  7.00f, 10.00f, 12.00f, 15.00f, 19.00f, 22.00f },  // m7
-  { 0.00f, 3.00f, 10.00f, 14.00f, 17.00f, 24.00f, 27.00f, 31.00f },  // m9
-  { 0.00f, 3.00f, 10.00f, 17.00f, 20.00f, 27.00f, 37.00f, 40.00f },  // m11
-  { 0.00f, 2.00f,  9.00f, 16.00f, 18.00f, 24.00f, 31.00f, 32.00f },  // 69
-  { 0.00f, 4.00f, 11.00f, 14.00f, 18.00f, 25.00f, 28.00f, 32.00f },  // M9
-  { 0.00f, 4.00f,  7.00f, 11.00f, 15.00f, 18.00f, 22.00f, 26.00f },  // M7
-  { 0.00f, 4.00f,  7.00f, 12.00f, 16.00f, 19.00f, 24.00f, 28.00f },  // M
+const char arp_table[kNumArps][kNumArpNotes] = {
+  {0,2,4,5,7,9,11,12},
+  {0,2,9,16,18,21,26,30},
+  {0,3,5,6,7,10,12,15},
+  {0,3,5,7,10,12,15,19},
+  {0,3,5,7,10,12,19,24},
+  {0,3,6,9,12,15,18,21},
+  {0,3,6,10,12,15,18,22},
+  {0,3,7,10,12,15,19,22},
+  {0,3,7,12,12,15,19,24},
+  {0,3,10,14,19,22,27,31},
+  {0,3,10,17,20,27,36,39},
+  {0,4,11,14,24,28,25,38},
+  {0,4,7,9,12,16,19,21},
+  {0,4,7,10,12,16,19,22},
+  {0,4,7,11,15,18,22,26},
+  {0,4,7,12,16,19,24,28},
+  {0,5,7,12,24,29,31,36},
+  {0,7,7,12,12,19,19,24},
+  {0,7,10,12,13,19,22,25},
+  {0,7,16,23,24,31,40,47},
+  {0,0,12,12,24,24,36,36}
 };
-
-// const int arp_table = 17;
-//  const float arpTable[kArpNumChords][kArpNumNotes] = {
-//   // Fixed Intervals
-//   { 0.00f, 0.00f, 12.00f, 12.00f },  // Octave
-//   { 0.00f, 7.00f,  7.00f, 12.00f },  // Fifth
-//   // Minor
-//   { 0.00f, 3.00f,  7.00f, 12.00f },  // Minor
-//   { 0.00f, 3.00f,  7.00f, 10.00f },  // Minor 7th
-//   { 0.00f, 3.00f, 10.00f, 14.00f },  // Minor 9th
-//   { 0.00f, 3.00f, 10.00f, 17.00f },  // Minor 11th
-//   // Major
-//   { 0.00f, 4.00f,  7.00f, 12.00f },  // Major
-//   { 0.00f, 4.00f,  7.00f, 11.00f },  // Major 7th
-//   { 0.00f, 4.00f, 11.00f, 14.00f },  // Major 9th
-//   // Colour Chords
-//   { 0.00f, 5.00f,  7.00f, 12.00f },  // Sus4
-//   { 0.00f, 2.00f,  9.00f, 16.00f },  // 69
-//   { 0.00f, 4.00f,  7.00f,  9.00f },  // 6th
-//   { 0.00f, 7.00f, 16.00f, 23.00f },  // 10th (Spread maj7)
-//   { 0.00f, 4.00f,  7.00f, 10.00f },  // Dominant 7th
-//   { 0.00f, 7.00f, 10.00f, 13.00f },  // Dominant 7th (b9)
-//   { 0.00f, 3.00f,  6.00f, 10.00f },  // Half Diminished
-//   { 0.00f, 3.00f,  6.00f,  9.00f },  // Fully Diminished
-// };
 
 const int kNumArpModes = 7;
 enum ArpMode {
-  ARP_MODE_UP = 1,
-  ARP_MODE_DOWN = 2,
-  ARP_MODE_INCLUSIVE = 3,
-  ARP_MODE_EXCLUSIVE = 4,
-  ARP_MODE_RANDOM = 5,
-  ARP_MODE_WALK = 6,
-  ARP_MODE_WALK_WITH_PAUSE = 7
+  ARP_MODE_UP,
+  ARP_MODE_DOWN,
+  ARP_MODE_INCLUSIVE,
+  ARP_MODE_EXCLUSIVE,
+  ARP_MODE_RANDOM,
+  ARP_MODE_WALK,
+  ARP_MODE_WALK_WITH_PAUSE
 };
 
 class ChannelPostProcessor {
@@ -202,6 +187,13 @@ struct Modulations {
   bool level_patched;
 };
 
+struct Arp {
+  int current_step; 
+  int steps;
+  int index;
+  int mode;
+};
+
 class Voice {
  public:
   Voice() { }
@@ -212,11 +204,12 @@ class Voice {
     short aux;
   };
 
-  void Init(stmlib::BufferAllocator* allocator, int* arp_step);
-  void DoNextArpStep(int arp_mode, int arp_steps);
+  void Init(stmlib::BufferAllocator* allocator);
+  void DoNextArpStep(Arp& arp);
   void Render(
       const Patch& patch,
       const Modulations& modulations,
+      Arp& arp,
       Frame* frames,
       size_t size);
   
@@ -275,7 +268,7 @@ class Voice {
   float arp_ratios[kNumArps][kNumArpNotes];
 
   float arp_inversion; 
-  int* arp_step;
+  // int* arp_step;
   bool arp_reverse; 
 
   float previous_note_;

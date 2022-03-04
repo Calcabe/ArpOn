@@ -33,7 +33,7 @@ namespace plaits {
 using namespace std;
 using namespace stmlib;
 
-void Voice::Init(BufferAllocator* allocator, int* arp_step_) {
+void Voice::Init(BufferAllocator* allocator) {
   engines_.Init();
   engines_.RegisterInstance(&virtual_analog_engine_, false, 0.8f, 0.8f);
   engines_.RegisterInstance(&waveshaping_engine_, false, 0.7f, 0.6f);
@@ -75,7 +75,7 @@ void Voice::Init(BufferAllocator* allocator, int* arp_step_) {
 
   arp_index_quantizer_.Init();
   arp_mode_quantizer_.Init();
-  arp_step = arp_step_; 
+  // arp_step = arp_step_; 
 
   for (int i = 0; i < kNumArps; ++i) {
     for (int j = 0; j < kNumArpNotes; ++j) {
@@ -84,39 +84,39 @@ void Voice::Init(BufferAllocator* allocator, int* arp_step_) {
   }
 }
 
-void Voice::DoNextArpStep(int arp_mode, int arp_steps) {
-  switch (arp_mode) {
+void Voice::DoNextArpStep(Arp& arp) {
+  switch (arp.mode) {
     case ARP_MODE_UP: {
-      arp_reverse = false;
-      if ((*arp_step) < arp_steps) {
-        (*arp_step)++;
+      arp_reverse = false; 
+      if ((arp.current_step) < arp.steps + 1) {
+        (arp.current_step)++;
       } else {
-        *arp_step = 1;
+        arp.current_step = 1;
       }
       break;
     }
     case ARP_MODE_DOWN: {
       arp_reverse = true;
-      if (*arp_step > 1) {
-        (*arp_step)--;
+      if (arp.current_step > 1) {
+        (arp.current_step)--;
       } else {
-        *arp_step = arp_steps; 
+        arp.current_step = arp.steps + 1; 
       }
       break;
     }
     case ARP_MODE_INCLUSIVE: {
       if (arp_reverse) {
-        if (*arp_step > 1) {
-          (*arp_step)--;
+        if (arp.current_step > 1) {
+          (arp.current_step)--;
         } else {
-          *arp_step = 1; 
+          arp.current_step = 1; 
           arp_reverse = false; 
         }
       } else {
-        if ((*arp_step) <= arp_steps) {
-          (*arp_step)++;
+        if ((arp.current_step) <= arp.steps + 1) {
+          (arp.current_step)++;
         } else {
-          *arp_step = arp_steps - 1; 
+          arp.current_step = arp.steps; 
           arp_reverse = true;
         }
       }
@@ -124,42 +124,42 @@ void Voice::DoNextArpStep(int arp_mode, int arp_steps) {
     }
     case ARP_MODE_EXCLUSIVE: {
       if (arp_reverse) {
-        if (*arp_step > 1) {
-          (*arp_step)--;
+        if (arp.current_step > 1) {
+          (arp.current_step)--;
         } else {
-          *arp_step = 2; 
+          arp.current_step = 2; 
           arp_reverse = false; 
         }
       } else {
-        if ((*arp_step) < arp_steps) {
-          (*arp_step)++;
+        if ((arp.current_step) < arp.steps + 1) {
+          (arp.current_step)++;
         } else {
-          *arp_step = arp_steps - 1; 
+          arp.current_step = arp.steps; 
           arp_reverse = true;
         }
       }
       break;
     }
     case ARP_MODE_RANDOM: {
-      *arp_step = (stmlib::Random::GetWord() >> 16) % arp_steps + 1;
+      arp.current_step = (stmlib::Random::GetWord() >> 16) % arp.steps + 2 ;
       break;
     }
     case ARP_MODE_WALK_WITH_PAUSE: 
     case ARP_MODE_WALK: {
-      int walk = (stmlib::Random::GetWord() >> 16) % ((arp_mode == ARP_MODE_WALK_WITH_PAUSE) ? 3 : 2);
+      int walk = (stmlib::Random::GetWord() >> 16) % ((arp.mode == ARP_MODE_WALK_WITH_PAUSE) ? 3 : 2);
       
       if (walk == 0) {
-        if (*arp_step > 1) {
-          (*arp_step)--;
+        if (arp.current_step > 1) {
+          (arp.current_step)--;
         } else {
-          *arp_step = 2; 
+          arp.current_step = 2; 
           arp_reverse = false; 
         }
       } else if (walk == 1) {
-        if ((*arp_step) < arp_steps) {
-          (*arp_step)++;
+        if ((arp.current_step) < arp.steps + 1) {
+          (arp.current_step)++;
         } else {
-          *arp_step = arp_steps - 1; 
+          arp.current_step = arp.steps ; 
           arp_reverse = true;
         }
       }
@@ -171,15 +171,17 @@ void Voice::DoNextArpStep(int arp_mode, int arp_steps) {
 void Voice::Render(
     const Patch& patch,
     const Modulations& modulations,
+    Arp& arp,
     Frame* frames,
     size_t size) {
   
-  int arp_index = arp_index_quantizer_.Process(patch.arp_index, kNumArps);
-  // int arp_mode = arp_mode_quantizer_.Process(patch.arp_mode, kNumArpModes);
-  int arp_mode = static_cast<float>(patch.arp_mode * 10.0f);
-  CONSTRAIN(arp_mode,1,kNumArpModes)
-  int arp_steps = static_cast<float>(patch.arp_steps * 10.0f);
-  CONSTRAIN(arp_steps,0,8)
+
+  arp.index = arp_index_quantizer_.Process(patch.arp_index, kNumArps);
+  arp.mode = arp_mode_quantizer_.Process(patch.arp_mode, kNumArpModes);
+  // int arp_mode = static_cast<float>(patch.arp_mode * 10.0f);
+  CONSTRAIN(arp.mode,0,kNumArpModes)
+  arp.steps = static_cast<float>(patch.arp_steps * 10.0f);
+  CONSTRAIN(arp.steps,0,7)
 
   // Trigger, LPG, internal envelope.
       
@@ -198,7 +200,7 @@ void Voice::Render(
       }
       decay_envelope_.Trigger();
       engine_cv_ = modulations.engine;
-      Voice::DoNextArpStep(arp_mode, arp_steps); 
+      Voice::DoNextArpStep(arp); 
     }
   } else {
     if (trigger_value < 0.1f) {
@@ -207,7 +209,7 @@ void Voice::Render(
   }
   if (!modulations.trigger_patched) {
     engine_cv_ = modulations.engine;
-    *arp_step = 0;
+    arp.current_step = 0;
   }
 
   // Engine selection.
@@ -253,11 +255,11 @@ void Voice::Render(
 
   // Arp parameter
 
-  int arp_step_c = *arp_step;
-  CONSTRAIN (arp_step_c,1,arp_steps)
+  // int arp_step_c = arp.step;
+  CONSTRAIN (arp.current_step,1,arp.steps + 1)
 
-  if ((arp_steps >> 0) && (modulations.trigger_patched)) {
-    p.ratio = arp_ratios[arp_index][arp_step_c - 1];
+  if ((arp.steps > 0) && (modulations.trigger_patched)) {
+    p.ratio = arp_ratios[arp.index][arp.current_step - 1];
   } else {
     p.ratio = 1.0f;
   }

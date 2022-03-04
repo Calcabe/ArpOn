@@ -52,7 +52,8 @@ Settings settings;
 Ui ui;
 Voice voice;
 
-int arp_step;
+Arp arp;
+// int arp_step;
 
 char shared_buffer[16384];
 uint32_t test_ramp;
@@ -100,7 +101,7 @@ void FillBuffer(AudioDac::Frame* output, size_t size) {
       ++output;
     }
   } else {
-    voice.Render(patch, modulations, (Voice::Frame*)(output), size);
+    voice.Render(patch, modulations, arp, (Voice::Frame*)(output), size);
     ui.set_active_engine(voice.active_engine());
   }
   
@@ -121,7 +122,7 @@ void Init() {
   IWDG_SetPrescaler(IWDG_Prescaler_16);
   
   BufferAllocator allocator(shared_buffer, 16384);
-  voice.Init(&allocator, &arp_step);
+  voice.Init(&allocator);
 
   volatile size_t counter = 1000000;
   while (counter--);
@@ -135,8 +136,8 @@ void Init() {
     debug_port.Init();
 #endif  // PROFILE_INTERRUPT
   }
-  arp_step = 0;
-  ui.Init(&patch, &modulations, &settings, &arp_step);
+  arp.current_step = 0;
+  ui.Init(&patch, &modulations, &settings, &arp);
   
   audio_dac.Init(48000, kBlockSize);
 
